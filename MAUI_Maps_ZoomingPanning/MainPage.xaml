@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:map="clr-namespace:Syncfusion.Maui.Maps;assembly=Syncfusion.Maui.Maps"
+             xmlns:local="clr-namespace:MAUI_Maps_ZoomingPanning"
+             x:Class="MAUI_Maps_ZoomingPanning.MainPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="MapMarkerTemplate">
+                <StackLayout>
+                    <Image Source="map_pin.png"
+                       HeightRequest="35"
+                       WidthRequest="25" />
+                    <Ellipse WidthRequest="8"
+                             HeightRequest="8"
+                             Fill="Red" />
+                    <Label Text="{Binding Name}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           FontSize="Caption"
+                           FontAttributes="Bold" />
+                    <Label Text="{Binding Time}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           FontSize="8" />
+                </StackLayout>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+        <map:SfMaps x:Name="map">
+            <map:SfMaps.Layer >
+            <map:MapTileLayer x:Name="mapTileLayer"
+                              UrlTemplate="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+                              MarkerTemplate="{StaticResource MapMarkerTemplate}" >
+                
+                <map:MapTileLayer.Markers>
+                    <map:MapMarkerCollection>
+                        <map:MapMarker Latitude="38.909804"
+                                    Longitude="-77.043442" />
+                        <map:MapMarker Latitude="38.909148"
+                                    Longitude="-77.043610" />
+                    </map:MapMarkerCollection>
+                </map:MapTileLayer.Markers>
+                <map:MapTileLayer.LatLngBounds>
+                    <map:MapLatLngBounds>
+                        <map:MapLatLngBounds.Northeast>
+                            <map:MapLatLng>
+                                <x:Arguments>
+                                    <x:Double>38.909804</x:Double>
+                                    <x:Double>-77.043442</x:Double>
+                                </x:Arguments>
+                            </map:MapLatLng>
+                        </map:MapLatLngBounds.Northeast>
+                        <map:MapLatLngBounds.Southwest>
+                            <map:MapLatLng>
+                                <x:Arguments>
+                                    <x:Double>38.909148</x:Double>
+                                    <x:Double>-77.043610</x:Double>
+                                </x:Arguments>
+                            </map:MapLatLng>
+                        </map:MapLatLngBounds.Southwest>
+                    </map:MapLatLngBounds>
+                </map:MapTileLayer.LatLngBounds>
+               
+                <map:MapTileLayer.ZoomPanBehavior>
+                    <map:MapZoomPanBehavior ZoomLevel="1"/>
+                </map:MapTileLayer.ZoomPanBehavior>
+
+            </map:MapTileLayer>
+        </map:SfMaps.Layer>
+        </map:SfMaps>
+ 
+    <ContentPage.BindingContext>
+        <local:MarkerViewModel/>
+    </ContentPage.BindingContext>
+        
+</ContentPage>
